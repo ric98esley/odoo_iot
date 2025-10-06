@@ -1,2 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_iot_base_iot_base,iot_base.iot_base,model_iot_base_iot_base,base.group_user,1,1,1,1
+iot_base.access_iot_devices_user,access_iot_devices_user,iot_base.model_iot_devices,iot_base.group_iot_user,1,1,1,0
+iot_base.access_iot_device_type_user,access_iot_device_type_user,iot_base.model_iot_device_type,iot_base.group_iot_user,1,1,1,0
+iot_base.access_iot_devices_manager,access_iot_devices_manager,iot_base.model_iot_devices,iot_base.group_iot_manager,1,1,1,1
+iot_base.access_iot_device_type_manager,access_iot_device_type_manager,iot_base.model_iot_device_type,iot_base.group_iot_manager,1,1,1,1

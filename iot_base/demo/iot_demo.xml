@@ -1,0 +1,8 @@
+<odoo>
+  <record id="iot_device_type_1" model="iot.device.type" noupdate="1">
+    <field name="name">Device</field>
+  </record>
+  <record id="iot_device_type_2" model="iot.device.type" noupdate="1">
+    <field name="name">Sensor</field>
+  </record>
+</odoo>

@@ -1,0 +1,21 @@
+<odoo>
+  <menuitem
+    id="menu_iot"
+    name="IoT"
+    sequence="10"
+    web_icon="iot,static/description/icon.png"
+  >
+    <menuitem
+      id="menu_iot_devices"
+      name="Devices"
+      action="action_iot_devices"
+      sequence="10"
+    />
+    <menuitem
+      id="menu_iot_device_types"
+      name="Device Types"
+      action="action_iot_device_type"
+      sequence="20"
+    />
+  </menuitem>
+</odoo>

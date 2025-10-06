@@ -9,6 +9,6 @@ class IotDevices(models.Model):
     password = fields.Char()
     device_type = fields.Many2one("iot.device.type")
     device_uid = fields.Char(
-        string="Device",
+        string="Device UID",
     )
-    company_id = fields.Many2one("res.company")
+    company_id = fields.Many2one("res.company", default=lambda self: self.env.company)

@@ -7,4 +7,4 @@ class IotDeviceType(models.Model):
 
     name = fields.Char()
     description = fields.Text()
-    company_id = fields.Many2one("res.company")
+    company_id = fields.Many2one("res.company", default=lambda self: self.env.company)

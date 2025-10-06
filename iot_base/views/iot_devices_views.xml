@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <!-- View iot.devices View List -->
+  <record id="view_iot_devices_list" model="ir.ui.view">
+    <field name="name">view.iot.devices.list</field>
+    <field name="model">iot.devices</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="name" />
+        <field name="password" />
+        <field name="device_type" />
+        <field name="device_uid" />
+      </list>
+    </field>
+  </record>
+
+  <!-- View iot.devices form -->
+  <record id="view_iot_devices_form" model="ir.ui.view">
+    <field name="name">view.iot.devices.form</field>
+    <field name="model">iot.devices</field>
+    <field name="arch" type="xml">
+      <form string="Iot Devices">
+        <sheet>
+          <div class="oe_title">
+            <label for="name" />
+            <h1>
+              <field name="name" placeholder="Name..." />
+            </h1>
+          </div>
+          <group>
+            <field name="password" placeholder="Password..." />
+            <field name="device_type" placeholder="Device Type..." />
+            <field name="device_uid" placeholder="Device UID..." />
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- View iot.devices search -->
+  <record id="view_iot_devices_search" model="ir.ui.view">
+    <field name="name">view.iot.devices.search</field>
+    <field name="model">iot.devices</field>
+    <field name="arch" type="xml">
+      <search>
+        <group expand="1" string="Group By">
+          <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}" />
+          <filter
+            string="Password"
+            name="password"
+            domain="[]"
+            context="{'group_by':'password'}"
+          />
+          <filter
+            string="Device Type"
+            name="device_type"
+            domain="[]"
+            context="{'group_by':'device_type'}"
+          />
+          <filter
+            string="Device UID"
+            name="device_uid"
+            domain="[]"
+            context="{'group_by':'device_uid'}"
+          />
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <!-- Action iot.devices -->
+  <record id="action_iot_devices" model="ir.actions.act_window">
+    <field name="name">Iot Devices</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">iot.devices</field>
+    <field name="view_mode">list,form</field>
+    <field name="domain">[]</field>
+    <field name="context">{}</field>
+    <field name="help" type="html">
+      <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Iot Devices.
+            </p>
+    </field>
+  </record>
+</odoo>

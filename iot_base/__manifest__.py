@@ -3,18 +3,41 @@
     "summary": "IoT Base",
     "author": "Ricardo Perez (ric98esley)",
     "website": "https://github.com/ric98esley/odoo_iot",
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
     "category": "IoT",
     "version": "18.0.0.0.1",
-    # any module necessary for this one to work correctly
     "depends": ["base"],
-    # always loaded
-    "data": [],
-    # only loaded in demonstration mode
+    "data": [
+        "views/iot_device_type_views.xml",
+        "views/iot_devices_views.xml",
+        "views/iot_app_view.xml",
+        "views/iot_menus.xml",
+        "security/iot_security.xml",
+        "security/ir.model.access.csv",
+    ],
     "demo": [
-        "demo/demo.xml",
+        "demo/iot_demo.xml",
     ],
     "license": "AGPL-3",
+    "assets": {
+        "iot_base.assets_standalone_app": [
+            # Front-end libraries
+            ("include", "web._assets_helpers"),
+            ("include", "web._assets_primary_variables"),
+            ("include", "web._assets_frontend_helpers"),
+            "web/static/lib/jquery/jquery.js",
+            "web/static/src/scss/pre_variables.scss",
+            "web/static/lib/bootstrap/scss/_variables.scss",
+            "web/static/lib/bootstrap/scss/_variables-dark.scss",
+            "web/static/lib/bootstrap/scss/_maps.scss",
+            ("include", "web._assets_bootstrap_frontend"),
+            ("include", "web._assets_bootstrap_backend"),
+            "/web/static/lib/odoo_ui_icons/*",
+            "/web/static/lib/bootstrap/scss/_functions.scss",
+            "/web/static/lib/bootstrap/scss/_mixins.scss",
+            "/web/static/lib/bootstrap/scss/utilities/_api.scss",
+            "web/static/src/libs/fontawesome/css/font-awesome.css",
+            ("include", "web._assets_core"),
+            "iot_base/static/src/**/*",
+        ],
+    },
 }
