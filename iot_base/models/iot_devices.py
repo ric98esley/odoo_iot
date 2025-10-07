@@ -11,4 +11,5 @@ class IotDevices(models.Model):
     device_uid = fields.Char(
         string="Device UID",
     )
+    is_superuser = fields.Boolean(default=False)
     company_id = fields.Many2one("res.company", default=lambda self: self.env.company)

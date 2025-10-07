@@ -8,6 +8,7 @@
       <list>
         <field name="name" />
         <field name="password" />
+        <field name="is_superuser" />
         <field name="device_type" />
         <field name="device_uid" />
       </list>
@@ -29,6 +30,7 @@
           </div>
           <group>
             <field name="password" placeholder="Password..." />
+            <field name="is_superuser" placeholder="Is Superuser..." />
             <field name="device_type" placeholder="Device Type..." />
             <field name="device_uid" placeholder="Device UID..." />
           </group>
