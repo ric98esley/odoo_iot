@@ -3,6 +3,7 @@
   <template id="iot_base.app">&lt;!DOCTYPE html&gt;
         <html>
     <head>
+      <script src="https://unpkg.com/mqtt/dist/mqtt.min.js" />
       <script type="text/javascript">
                     var odoo = {
                         csrf_token: "<t

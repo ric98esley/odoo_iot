@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve">
     <t t-name="iot_base.Root">
-        Hello, World!
-    </t>
+    <div class="container-fluid p-4">
+      <div class="row mb-4">
+        <div class="col-12">
+          <h1 class="display-4 text-center mb-2">
+                        <i class="fa fa-microchip me-3" />IoT Dashboard
+                    </h1>
+          <p class="text-center text-muted">
+                        Monitor and control your IoT devices through MQTT protocol
+                    </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <MQTTSubscriber title="'MQTT Topic Monitor'" />
+        </div>
+      </div>
+    </div>
+  </t>
 </templates>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="iot_base.Button">
+    <button
+      t-att-class="buttonClasses"
+      t-att-disabled="props.disabled or props.loading"
+      t-on-click="_onClick"
+    >
+      <span
+        t-if="props.loading"
+        class="spinner-border spinner-border-sm me-1"
+        role="status"
+        aria-hidden="true"
+      />
+      <i t-if="props.icon and !props.loading" t-attf-class="fa {{props.icon}} me-1" />
+      <t t-if="props.label">
+        <t t-esc="props.label" />
+      </t>
+      <t t-else="">
+        <t t-slot="default" />
+      </t>
+    </button>
+  </t>
+</templates>

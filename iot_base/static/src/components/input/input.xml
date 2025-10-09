@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="iot_base.Input">
+    <div t-attf-class="form-group mb-3 {{props.className}}">
+      <label t-if="props.label" class="form-label">
+        <t t-esc="props.label" />
+        <span t-if="props.required" class="text-danger">*</span>
+      </label>
+      <input
+        t-att-type="props.type"
+        t-att-value="props.value"
+        t-att-placeholder="props.placeholder"
+        t-att-disabled="props.disabled"
+        t-att-required="props.required"
+        class="form-control"
+        t-on-change="_onChange"
+        t-on-input="_onInput"
+        t-on-keypress="_onKeyPress"
+      />
+    </div>
+  </t>
+</templates>
