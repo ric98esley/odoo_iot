@@ -1,9 +1,7 @@
-/** @odoo-module **/
-
 import {Component, onWillDestroy, useState} from "@odoo/owl";
 import {Input} from "../../components/input/input";
 import {Button} from "../../components/button/button";
-import {mqttService} from "../../services/mqtt_service";
+import {mqttService} from "../../services/mqtt_service.esm";
 
 /**
  * MQTT Subscriber Widget
