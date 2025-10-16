@@ -11,6 +11,7 @@ class ResConfigSettings(models.TransientModel):
         help="WebSocket URL for the EMQX MQTT broker. "
         "Use 'ws://' for development or 'wss://' for production with SSL.",
     )
+
     mqtt_broker_host = fields.Char(
         string="MQTT Broker Host",
         config_parameter="iot_base.mqtt_broker_host",

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <!-- View iot.permission List -->
+  <record id="view_iot_permission_list" model="ir.ui.view">
+    <field name="name">view.iot.permission.list</field>
+    <field name="model">iot.permission</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="username" />
+        <field name="topic" />
+        <field name="action" />
+        <field name="active" widget="boolean_toggle" />
+      </list>
+    </field>
+  </record>
+
+  <!-- View iot.permission form -->
+  <record id="view_iot_permission_form" model="ir.ui.view">
+    <field name="name">view.iot.permission.form</field>
+    <field name="model">iot.permission</field>
+    <field name="arch" type="xml">
+      <form string="IoT Permission">
+        <sheet>
+          <div class="oe_button_box" name="button_box">
+            <widget
+              name="web_ribbon"
+              title="Archived"
+              bg_color="text-bg-danger"
+              invisible="active"
+            />
+          </div>
+          <group>
+            <group>
+              <field name="iot_credential_id" />
+              <field name="username" readonly="1" />
+            </group>
+            <group>
+              <field name="topic" placeholder="e.g., sensors/+/temp or sensors/#" />
+              <field name="action" />
+              <field name="active" />
+            </group>
+          </group>
+          <group>
+            <div class="alert alert-info" role="alert">
+              <strong>MQTT Topic Wildcards:</strong>
+              <ul>
+                <li>
+                  <strong>+</strong> (single-level): Matches one level. Example:
+                  <code>sensors/+/temp</code> matches
+                  <code>sensors/room1/temp</code>
+                </li>
+                <li>
+                  <strong>#</strong> (multi-level): Matches multiple levels. Example:
+                  <code>sensors/#</code> matches
+                  <code>sensors/room1/temp</code> and
+                  <code>sensors/room1/temp/current</code>
+                </li>
+              </ul>
+            </div>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- View iot.permission search -->
+  <record id="view_iot_permission_search" model="ir.ui.view">
+    <field name="name">view.iot.permission.search</field>
+    <field name="model">iot.permission</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="username" />
+        <field name="topic" />
+        <field name="iot_credential_id" />
+        <filter string="Active" name="active" domain="[('active', '=', True)]" />
+        <filter string="Archived" name="inactive" domain="[('active', '=', False)]" />
+        <separator />
+        <filter string="Publish" name="publish" domain="[('action', '=', 'publish')]" />
+        <filter
+          string="Subscribe"
+          name="subscribe"
+          domain="[('action', '=', 'subscribe')]"
+        />
+        <filter string="All Actions" name="all" domain="[('action', '=', 'all')]" />
+        <group expand="1" string="Group By">
+          <filter
+            string="Credential"
+            name="credential"
+            domain="[]"
+            context="{'group_by':'iot_credential_id'}"
+          />
+          <filter
+            string="Action"
+            name="action_group"
+            domain="[]"
+            context="{'group_by':'action'}"
+          />
+          <filter
+            string="Active Status"
+            name="active_status"
+            domain="[]"
+            context="{'group_by':'active'}"
+          />
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <!-- Action iot.permission -->
+  <record id="action_iot_permission" model="ir.actions.act_window">
+    <field name="name">IoT Topic Permissions</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">iot.permission</field>
+    <field name="view_mode">list,form</field>
+    <field name="domain">[]</field>
+    <field name="context">{'search_default_active': 1}</field>
+    <field name="help" type="html">
+      <p class="oe_view_nocontent_create">
+                Click here to create new IoT Topic Permissions.
+            </p>
+      <p>
+                Define which topics users and devices can publish to or subscribe from.
+                Use MQTT wildcards (+, #) for flexible topic matching.
+            </p>
+    </field>
+  </record>
+</odoo>

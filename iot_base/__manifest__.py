@@ -12,6 +12,7 @@
         "views/iot_credentials_views.xml",
         "views/iot_device_type_views.xml",
         "views/iot_devices_views.xml",
+        "views/iot_permission_views.xml",
         "views/res_users_views.xml",
         "views/res_config_settings_views.xml",
         "views/iot_app_view.xml",

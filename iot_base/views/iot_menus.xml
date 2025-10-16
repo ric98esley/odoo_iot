@@ -23,5 +23,11 @@
       action="action_iot_credentials"
       sequence="30"
     />
+    <menuitem
+      id="menu_iot_permissions"
+      name="Topic Permissions"
+      action="action_iot_permission"
+      sequence="40"
+    />
   </menuitem>
 </odoo>
