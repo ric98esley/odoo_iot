@@ -1,0 +1,100 @@
+.event-indicator {
+  .hexagon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+  }
+
+  .hexagon-icon {
+    transition: all 0.3s ease;
+
+    .hexagon-shape {
+      transition:
+        fill 0.3s ease,
+        filter 0.3s ease;
+    }
+
+    .rays {
+      animation: pulse 2s infinite;
+    }
+  }
+
+  .event-label {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-weight: bold;
+    font-size: 1.8rem;
+    color: #333;
+    margin: 0;
+  }
+
+  // Pulse animation for rays when on
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  // Status badge animations
+  .badge {
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+
+    &.bg-success {
+      animation: badgePulse 2s infinite;
+    }
+  }
+
+  @keyframes badgePulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(25, 135, 84, 0.7);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(25, 135, 84, 0);
+    }
+  }
+
+  // Form styling
+  .form-control-sm {
+    font-size: 0.85rem;
+  }
+
+  .form-label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  // Alert styling
+  .alert-sm {
+    font-size: 0.85rem;
+    border-radius: 0.25rem;
+  }
+
+  // Last message info
+  .text-muted {
+    div {
+      margin-bottom: 0.25rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  // Button styling
+  .btn-sm {
+    font-size: 0.85rem;
+    padding: 0.25rem 0.75rem;
+  }
+}
+
+// Card background for better contrast
+.event-indicator.card {
+  background: linear-gradient(135deg, #fff9e6 0%, #ffffff 100%);
+  border: 2px solid #e8e8e8;
+}

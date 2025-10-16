@@ -19,6 +19,29 @@ export class MQTTService {
   }
 
   /**
+   * Connect to MQTT broker using Odoo's configuration
+   * Automatically uses credentials from the backend
+   * @returns {Promise<void>}
+   */
+  async connectWithOdooConfig() {
+    // Get MQTT config from Odoo global object
+    const mqttConfig = window.odoo?.mqtt_config;
+
+    if (!mqttConfig) {
+      throw new Error("MQTT configuration not found in Odoo context");
+    }
+
+    const {broker_url, credentials} = mqttConfig;
+
+    return this.connect({
+      url: broker_url,
+      username: credentials.username,
+      password: credentials.password,
+      clientId: `odoo_user_${credentials.username}`,
+    });
+  }
+
+  /**
    * Connect to MQTT broker
    * @param {Object} options - Connection options
    * @param {String} options.url - Broker URL (e.g., 'ws://localhost:8883')
@@ -54,9 +77,6 @@ export class MQTTService {
       if (options.password) {
         connectOptions.password = options.password;
       }
-
-      console.log("url", options.url);
-      console.log("connectOptions", connectOptions);
 
       // Use the global mqtt object from mqtt.min.js
       this.client = mqtt.connect(options.url, connectOptions);

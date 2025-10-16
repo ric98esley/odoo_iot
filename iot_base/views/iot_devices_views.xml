@@ -7,8 +7,6 @@
     <field name="arch" type="xml">
       <list>
         <field name="name" />
-        <field name="password" />
-        <field name="is_superuser" />
         <field name="device_type" />
         <field name="device_uid" />
       </list>
@@ -29,11 +27,21 @@
             </h1>
           </div>
           <group>
-            <field name="password" placeholder="Password..." />
-            <field name="is_superuser" placeholder="Is Superuser..." />
             <field name="device_type" placeholder="Device Type..." />
             <field name="device_uid" placeholder="Device UID..." />
           </group>
+          <notebook>
+            <page string="EMQX Credentials" name="credentials">
+              <field name="credential_ids">
+                <list editable="bottom">
+                  <field name="name" />
+                  <field name="password" password="True" />
+                  <field name="is_superuser" />
+                  <field name="resource_type" invisible="1" />
+                </list>
+              </field>
+            </page>
+          </notebook>
         </sheet>
       </form>
     </field>
@@ -47,12 +55,6 @@
       <search>
         <group expand="1" string="Group By">
           <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}" />
-          <filter
-            string="Password"
-            name="password"
-            domain="[]"
-            context="{'group_by':'password'}"
-          />
           <filter
             string="Device Type"
             name="device_type"

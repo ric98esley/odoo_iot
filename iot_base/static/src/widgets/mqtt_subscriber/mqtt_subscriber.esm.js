@@ -1,6 +1,6 @@
 import {Component, onWillDestroy, useState} from "@odoo/owl";
-import {Input} from "../../components/input/input";
-import {Button} from "../../components/button/button";
+import {Input} from "../../components/input/input.esm";
+import {Button} from "../../components/button/button.esm";
 import {mqttService} from "../../services/mqtt_service.esm";
 
 /**
@@ -30,24 +30,50 @@ export class MQTTSubscriber extends Component {
   setup() {
     this.mqttService = mqttService;
 
+    // Get MQTT config from Odoo if available
+    const mqttConfig = window.odoo?.mqtt_config;
+    const defaultBrokerUrl = mqttConfig?.broker_url || "ws://localhost:8083/mqtt";
+    const defaultUsername = mqttConfig?.credentials?.username || "";
+    const defaultPassword = mqttConfig?.credentials?.password || "";
+
     this.state = useState({
       topic: "",
       subscribedTopic: null,
       messages: [],
-      brokerUrl: "ws://localhost:8883",
-      username: "",
-      password: "",
+      brokerUrl: defaultBrokerUrl,
+      username: defaultUsername,
+      password: defaultPassword,
       isSubscribing: false,
       error: null,
+      useOdooConfig: Boolean(mqttConfig), // Flag to indicate if using Odoo config
     });
 
     // Callback reference for unsubscribing
     this.messageCallback = null;
 
+    // Auto-connect if Odoo config is available
+    if (mqttConfig) {
+      this._autoConnectWithOdooConfig();
+    }
+
     // Cleanup on component destroy
     onWillDestroy(() => {
       this._cleanup();
     });
+  }
+
+  /**
+   * Auto-connect using Odoo configuration
+   * @private
+   */
+  async _autoConnectWithOdooConfig() {
+    try {
+      await this.mqttService.connectWithOdooConfig();
+      console.log("Auto-connected to MQTT broker using Odoo credentials");
+    } catch (error) {
+      console.error("Auto-connect failed:", error);
+      this.state.error = `Auto-connect failed: ${error.message}`;
+    }
   }
 
   /**

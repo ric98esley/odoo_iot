@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="iot_base.Card">
+    <div t-att-class="cardClasses" t-att-style="cardStyle">
+      <!-- Card Header (optional) -->
+      <div t-if="props.title or slots.header" t-att-class="headerClasses">
+        <t t-if="props.title">
+          <h6 class="mb-0" t-esc="props.title" />
+        </t>
+        <t t-else="">
+          <t t-slot="header" />
+        </t>
+      </div>
+
+      <!-- Card Body -->
+      <div t-att-class="bodyClasses">
+        <t t-slot="default" />
+      </div>
+    </div>
+  </t>
+</templates>

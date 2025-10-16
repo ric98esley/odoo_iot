@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <!-- Extend res.users form to add IoT credentials -->
+  <record id="view_users_form_iot" model="ir.ui.view">
+    <field name="name">res.users.form.iot</field>
+    <field name="model">res.users</field>
+    <field name="inherit_id" ref="base.view_users_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//notebook" position="inside">
+        <page string="IoT EMQX Credentials" name="iot_credentials">
+          <field name="iot_credential_ids">
+            <list editable="bottom">
+              <field name="name" />
+              <field name="password" password="True" />
+              <field name="is_superuser" />
+              <field name="resource_type" invisible="1" />
+            </list>
+          </field>
+        </page>
+      </xpath>
+    </field>
+  </record>
+</odoo>

@@ -3,8 +3,10 @@ from odoo.http import Controller, request, route
 
 class IotDevicesController(Controller):
     @route("/iot/auth/<token>", auth="none", type="http", methods=["POST"], csrf=False)
-    def auth_device(self, **kwargs):
-        token = kwargs.get("token")
+    def auth_device(self, token, **kwargs):
+        """
+        EMQX authentication endpoint - works transparently for both users and devices
+        """
         if not token:
             return request.make_json_response(
                 {
@@ -26,12 +28,14 @@ class IotDevicesController(Controller):
                 status=400,
             )
 
-        device = (
-            request.env["iot.devices"]
+        # Search in unified credentials table (works for both users and devices)
+        credential = (
+            request.env["iot.credentials"]
             .sudo()
-            .search([("name", "=", username), ("password", "=", password)])
+            .search([("name", "=", username), ("password", "=", password)], limit=1)
         )
-        if not device:
+
+        if not credential:
             return request.make_json_response(
                 {
                     "result": "deny",
@@ -42,7 +46,8 @@ class IotDevicesController(Controller):
         return request.make_json_response(
             {
                 "result": "allow",
-                "is_superuser": device.is_superuser,
+                "is_superuser": credential.is_superuser,
+                "resource_type": credential.resource_type,
             }
         )
 

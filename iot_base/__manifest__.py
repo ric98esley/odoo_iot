@@ -7,12 +7,14 @@
     "version": "18.0.0.0.1",
     "depends": ["base"],
     "data": [
-        "views/iot_device_type_views.xml",
-        "views/iot_devices_views.xml",
-        "views/iot_app_view.xml",
-        "views/iot_menus.xml",
         "security/iot_security.xml",
         "security/ir.model.access.csv",
+        "views/iot_credentials_views.xml",
+        "views/iot_device_type_views.xml",
+        "views/iot_devices_views.xml",
+        "views/res_users_views.xml",
+        "views/iot_app_view.xml",
+        "views/iot_menus.xml",
     ],
     "demo": [
         "demo/iot_demo.xml",

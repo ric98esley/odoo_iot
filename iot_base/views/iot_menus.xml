@@ -17,5 +17,11 @@
       action="action_iot_device_type"
       sequence="20"
     />
+    <menuitem
+      id="menu_iot_credentials"
+      name="EMQX Credentials"
+      action="action_iot_credentials"
+      sequence="30"
+    />
   </menuitem>
 </odoo>

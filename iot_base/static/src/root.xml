@@ -14,8 +14,22 @@
       </div>
 
       <div class="row">
-        <div class="col-12">
+        <div class="col-lg-8">
           <MQTTSubscriber title="'MQTT Topic Monitor'" />
+        </div>
+        <div class="col-lg-4">
+          <div class="row g-3">
+            <div class="col-md-6 col-lg-12">
+              <EventIndicator title="'Event Monitor'" width="'100%'" variable="'LED'" />
+            </div>
+            <div class="col-md-6 col-lg-12">
+              <EventIndicator
+                title="'Motion Detector'"
+                width="'100%'"
+                variable="'motion'"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -12,6 +12,7 @@
       />",
                         debug: "<t t-out="debug" />",
                         __session_info__: <t t-esc="json.dumps(session_info)" />,
+                        mqtt_config: <t t-esc="json.dumps(mqtt_config)" />,
                     };
                 </script>
       <t t-call-assets="iot_base.assets_standalone_app" />
