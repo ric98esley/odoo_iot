@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <!-- Extend General Settings to add IoT Configuration -->
+  <record id="res_config_settings_view_form_iot" model="ir.ui.view">
+    <field name="name">res.config.settings.view.form.inherit.iot</field>
+    <field name="model">res.config.settings</field>
+    <field name="inherit_id" ref="base.res_config_settings_view_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//form" position="inside">
+        <app
+          data-string="IoT"
+          string="IoT"
+          name="iot_base"
+          groups="iot_base.group_iot_manager"
+        >
+          <block title="MQTT Broker Configuration">
+            <setting
+              id="mqtt_broker_config"
+              help="Configure the MQTT broker connection settings for IoT devices and users."
+            >
+              <div class="content-group">
+                <div class="row mt16">
+                  <label for="mqtt_broker_url" class="col-lg-3 o_light_label" />
+                  <field name="mqtt_broker_url" class="oe_inline" />
+                </div>
+                <div class="text-muted">
+                                    Full WebSocket URL (e.g., ws://broker.example.com:8083/mqtt or wss://broker.example.com:8084/mqtt)
+                                </div>
+              </div>
+            </setting>
+            <setting
+              id="mqtt_broker_advanced"
+              string="Advanced MQTT Settings"
+              help="Configure MQTT broker host, port, and SSL settings. The broker URL will be auto-generated."
+            >
+              <div class="content-group">
+                <div class="row mt16">
+                  <label for="mqtt_broker_host" class="col-lg-3 o_light_label" />
+                  <field name="mqtt_broker_host" class="oe_inline" />
+                </div>
+                <div class="row">
+                  <label for="mqtt_broker_port" class="col-lg-3 o_light_label" />
+                  <field name="mqtt_broker_port" class="oe_inline" />
+                </div>
+                <div class="row">
+                  <label
+                    for="mqtt_use_ssl"
+                    string="Use SSL/TLS (wss://)"
+                    class="col-lg-3 o_light_label"
+                  />
+                  <field name="mqtt_use_ssl" class="oe_inline" />
+                </div>
+                <div class="text-muted">
+                                    When you change these settings, the broker URL will be automatically updated.
+                                </div>
+              </div>
+            </setting>
+          </block>
+        </app>
+      </xpath>
+    </field>
+  </record>
+</odoo>

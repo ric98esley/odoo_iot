@@ -1,15 +1,29 @@
 # MQTT Connection - Quick Start
 
+## Prerequisites
+
+### Configure MQTT Broker URL
+
+**Before using the IoT app, configure your MQTT broker:**
+
+1. Navigate to **Settings → General Settings**
+2. Scroll to **IoT** section
+3. Set **MQTT Broker URL** (e.g., `ws://localhost:8083/mqtt`)
+4. Or use **Advanced Settings** to auto-generate the URL
+
+**See full documentation:** `docs/MQTT_CONFIGURATION.md`
+
 ## Automatic Connection (Recommended)
 
 The IoT Base module automatically handles MQTT authentication for you!
 
 ### How it Works
 
-1. **Login to Odoo** and navigate to `/iot/app`
-2. **Credentials are auto-generated** on first access
-3. **Auto-connection** to EMQX broker happens automatically
-4. **Start subscribing** to topics immediately
+1. **Configure broker URL** in Settings (one-time setup)
+2. **Login to Odoo** and navigate to `/iot/app`
+3. **Credentials are auto-generated** on first access
+4. **Auto-connection** to EMQX broker happens automatically
+5. **Start subscribing** to topics immediately
 
 ### In the Frontend (JavaScript/Owl)
 
@@ -57,22 +71,36 @@ await mqttService.connect({
 
 ## Configuration
 
-### Default Broker URL
+### MQTT Broker URL
 
-**Current:** `ws://localhost:8083/mqtt`
+**Configured per company via Settings UI**
+
+**Default if not configured:** `ws://localhost:8083/mqtt`
 
 ### Changing Broker URL
 
-Edit `iot/iot_base/controllers/app.py`:
+**Via Odoo UI (Recommended):**
+
+1. Go to **Settings → General Settings**
+2. Scroll to **IoT** section
+3. Set **MQTT Broker URL** or configure **Advanced Settings**
+4. Click **Save**
+
+**Via Python Code:**
 
 ```python
-mqtt_config = {
-    'broker_url': 'wss://your-broker.com/mqtt',  # Change this
-    'credentials': iot_credentials,
-}
+# Set for current company
+env.company.mqtt_broker_url = 'wss://your-broker.com:8084/mqtt'
+
+# Or use advanced settings
+env.company.write({
+    'mqtt_broker_host': 'your-broker.com',
+    'mqtt_broker_port': 8084,
+    'mqtt_use_ssl': True,
+})
 ```
 
-Or make it configurable (see `docs/mqtt_authentication.md`)
+**See full documentation:** `docs/MQTT_CONFIGURATION.md`
 
 ## Checking Your Credentials
 
