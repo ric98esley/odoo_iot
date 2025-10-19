@@ -32,6 +32,11 @@ class IotCredentials(models.Model):
         default=lambda self: self.env.company,
     )
 
+    active = fields.Boolean(
+        default=True,
+        help="Uncheck to archive credentials without deleting them",
+    )
+
     @api.constrains("resource_type", "user_id", "device_id")
     def _check_resource_consistency(self):
         for record in self:

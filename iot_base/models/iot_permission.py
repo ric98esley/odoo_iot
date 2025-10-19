@@ -12,7 +12,15 @@ class IotPermission(models.Model):
         ondelete="cascade",
         index=True,
     )
-    username = fields.Char(related="iot_credential_id.name", store=True, index=True)
+    iot_device_id = fields.Many2one(
+        "iot.devices",
+        related="iot_credential_id.device_id",
+        store=True,
+    )
+    username = fields.Char(
+        related="iot_credential_id.name",
+        store=True,
+    )
 
     topic = fields.Char(
         required=True,

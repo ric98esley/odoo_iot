@@ -9,15 +9,16 @@ export class MQTTMessage {
    * @param {String} data.userId - User ID
    * @param {String} data.dId - Device ID
    * @param {String} data.variable - Variable name
+   * @param {String} data.variableUId - Variable UID
    * @param {Number} data.value - Variable value
    * @param {Number} data.time - Timestamp
    */
   constructor(data) {
     this.validate(data);
-
     this.userId = data.userId;
     this.dId = data.dId;
     this.variable = data.variable;
+    this.variableUId = data.variableUId;
     this.value = data.value;
     this.time = data.time;
   }

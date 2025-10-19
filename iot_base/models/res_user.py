@@ -22,6 +22,7 @@ class ResUser(models.Model):
     def get_or_create_iot_credentials(self):
         """
         Get existing IoT credentials or create new ones for the user
+        Also creates default permissions for company-scoped topics
         Returns a dict with username and password for MQTT connection
         """
         self.ensure_one()
@@ -46,8 +47,61 @@ class ResUser(models.Model):
                 }
             )
 
+        # Create default permissions for company topics
+        self._create_default_company_permissions(credential)
+
         return {
             "username": credential.name,
             "password": credential.password,
             "is_superuser": credential.is_superuser,
         }
+
+    def _create_default_company_permissions(self, credential):
+        """
+        Create default MQTT permissions for user to access company-scoped topics
+
+        Users get access to topics starting with their company ID:
+        - Subscribe: company_id/#
+        - Publish: company_id/#
+
+        Args:
+            credential: iot.credentials record
+        """
+        self.ensure_one()
+
+        # Get user's company ID
+        company_id = self.company_id.id
+
+        # Topic pattern for company namespace
+        company_topic = f"{company_id}/#"
+
+        # Create permissions for subscribe and publish
+        permissions_data = [
+            {
+                "iot_credential_id": credential.id,
+                "topic": company_topic,
+                "action": "subscribe",
+                "active": True,
+            },
+            {
+                "iot_credential_id": credential.id,
+                "topic": company_topic,
+                "action": "publish",
+                "active": True,
+            },
+        ]
+
+        # Create permissions
+        for perm_data in permissions_data:
+            # Check if permission already exists
+            existing = self.env["iot.permission"].search(
+                [
+                    ("iot_credential_id", "=", credential.id),
+                    ("topic", "=", perm_data["topic"]),
+                    ("action", "=", perm_data["action"]),
+                ],
+                limit=1,
+            )
+
+            if not existing:
+                self.env["iot.permission"].create(perm_data)

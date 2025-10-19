@@ -19,6 +19,15 @@
     <field name="model">iot.devices</field>
     <field name="arch" type="xml">
       <form string="Iot Devices">
+        <header>
+          <button
+            name="action_regenerate_credentials"
+            string="Regenerate Credentials"
+            type="object"
+            class="btn-warning"
+            confirm="This will archive the current credentials and create new ones. Continue?"
+          />
+        </header>
         <sheet>
           <div class="oe_title">
             <label for="name" />
@@ -27,17 +36,105 @@
             </h1>
           </div>
           <group>
-            <field name="device_type" placeholder="Device Type..." />
-            <field name="device_uid" placeholder="Device UID..." />
+            <group>
+              <field name="device_type" placeholder="Device Type..." />
+              <field name="device_uid" placeholder="Device UID..." />
+            </group>
+            <group>
+              <field name="company_id" groups="base.group_multi_company" />
+            </group>
           </group>
           <notebook>
             <page string="EMQX Credentials" name="credentials">
+              <div class="alert alert-info" role="alert">
+                <strong>Automatic Credentials:</strong> Credentials are automatically
+                generated when creating a device. Default permissions are created for
+                sensor data publishing and command receiving.
+              </div>
               <field name="credential_ids">
                 <list editable="bottom">
                   <field name="name" />
                   <field name="password" password="True" />
                   <field name="is_superuser" />
+                  <field name="active" widget="boolean_toggle" />
                   <field name="resource_type" invisible="1" />
+                </list>
+              </field>
+            </page>
+            <page string="Topic Permissions" name="permissions">
+              <div class="alert alert-info" role="alert">
+                <h5>
+                  <i class="fa fa-info-circle" /> Automatic Topic Permissions
+                </h5>
+                <p>
+                  <strong>When a device is created, it automatically gets:</strong>
+                </p>
+                <ul>
+                  <li>
+                    <strong>Publish to:</strong>
+                    <code>{company_id}/{device_id}/+/sdata</code>
+                    <br />
+                    <small class="text-muted">
+                      Device publishes sensor data (e.g., temperature, humidity, status)
+                    </small>
+                  </li>
+                  <li>
+                    <strong>Subscribe to:</strong>
+                    <code>{company_id}/{device_id}/+/acdata</code>
+                    <br />
+                    <small class="text-muted">
+                      Device receives commands and actions (e.g., turn on/off, update config)
+                    </small>
+                  </li>
+                </ul>
+                <p>
+                  <strong>Topic Structure:</strong>
+                </p>
+                <ul>
+                  <li>
+                    <code>company_id</code> - Your company ID for isolation
+                  </li>
+                  <li>
+                    <code>device_id</code> - This device's unique ID
+                  </li>
+                  <li>
+                    <code>+</code> - Wildcard for data/command type
+                  </li>
+                  <li>
+                    <code>sdata</code> - Sensor data (device publishes)
+                  </li>
+                  <li>
+                    <code>acdata</code> - Action/Command data (device subscribes)
+                  </li>
+                </ul>
+                <p>
+                  <strong>Examples:</strong>
+                </p>
+                <ul>
+                  <li>
+                    Publish temperature:
+                    <code>1/5/temperature/sdata</code>
+                  </li>
+                  <li>
+                    Publish humidity:
+                    <code>1/5/humidity/sdata</code>
+                  </li>
+                  <li>
+                    Subscribe to turn_on:
+                    <code>1/5/turn_on/acdata</code>
+                  </li>
+                  <li>
+                    Subscribe to config update:
+                    <code>1/5/update_config/acdata</code>
+                  </li>
+                </ul>
+              </div>
+              <field name="permission_ids">
+                <list editable="bottom">
+                  <field name="topic" placeholder="e.g., 1/5/temperature/sdata" />
+                  <field name="action" />
+                  <field name="active" widget="boolean_toggle" />
+                  <field name="iot_credential_id" />
                 </list>
               </field>
             </page>
